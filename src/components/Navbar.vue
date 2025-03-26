@@ -39,12 +39,17 @@ import { useRouter } from 'vue-router'
 </script>
 
 <template>
-  <nav class="bg-secondary text-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex justify-between items-center">
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
         <!-- Logo et Titre -->
         <div class="flex items-center">
-          <h1 class="text-xl font-semibold">Mon Application</h1>
+          <router-link to="/" class="flex items-center gap-2 text-blue-600 font-semibold text-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+            Gestion Locative
+          </router-link>
         </div>
         
         <!-- Menu de Navigation -->
@@ -52,13 +57,13 @@ import { useRouter } from 'vue-router'
           <template v-if="!authStore.isLoggedIn">
             <button 
               @click="handleNavigation('/login')" 
-              class="btn btn-primary"
+              class="text-blue-600 hover:text-blue-700 font-semibold"
             >
               Connexion
             </button>
             <button 
               @click="handleNavigation('/register')" 
-              class="btn btn-secondary"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
             >
               Inscription
             </button>
@@ -68,7 +73,7 @@ import { useRouter } from 'vue-router'
               <span class="flex items-center gap-2">
                 {{ authStore.user?.firstName }} {{ authStore.user?.lastName }}
                 <span 
-                  class="px-2 py-1 text-sm rounded-full"
+                  class="px-2 py-1 text-sm rounded-full text-white"
                   :class="{
                     'bg-orange-500': authStore.userRole === 'owner',
                     'bg-blue-500': authStore.userRole === 'tenant'
@@ -80,20 +85,20 @@ import { useRouter } from 'vue-router'
               <button 
                 v-if="authStore.isOwner" 
                 @click="handleNavigation('/dashboard')" 
-                class="btn btn-primary"
+                class="text-blue-600 hover:text-blue-700 font-semibold"
               >
                 Dashboard
               </button>
               <button 
                 v-if="authStore.isTenant" 
                 @click="handleNavigation('/my-rentals')" 
-                class="btn btn-primary"
+                class="text-blue-600 hover:text-blue-700 font-semibold"
               >
                 Mes Locations
               </button>
               <button 
                 @click="handleLogout" 
-                class="btn btn-secondary"
+                class="text-gray-600 hover:text-gray-700 font-semibold"
               >
                 Déconnexion
               </button>
@@ -104,61 +109,3 @@ import { useRouter } from 'vue-router'
     </div>
   </nav>
 </template>
-
-<style scoped>
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #2c3e50;
-  color: white;
-}
-
-.navbar-brand h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.navbar-menu {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-right: 1rem;
-}
-
-.role-badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  background-color: #42b983;
-}
-
-.role-badge.owner {
-  background-color: #e67e22;
-}
-
-.role-badge.tenant {
-  background-color: #3498db;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #42b983;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.btn:hover {
-  background-color: #3aa876;
-}
-</style>
